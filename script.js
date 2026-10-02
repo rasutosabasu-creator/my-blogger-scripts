@@ -750,7 +750,7 @@ ${html}
   function initialize() {
 
     /*
-     * コピー按钮
+     * コピーボタン
      */
 
     const copyButton =
