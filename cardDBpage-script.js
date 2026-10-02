@@ -1,3 +1,4 @@
+
 (function () {
 
   'use strict';
@@ -294,7 +295,7 @@
 
     return `
 
-      <article
+      <div
         class="gist-card-container"
         data-card-id="${escapeHTML(item.ID)}"
       >
@@ -346,7 +347,7 @@
 
         </div>
 
-      </article>
+      </div>
 
     `;
 
@@ -658,7 +659,7 @@
     const cards =
       Array.from(
         document.querySelectorAll(
-          '.gist-card-container'
+          '.regenerateHTML'
         )
       );
 
@@ -688,31 +689,12 @@
         .join('\n\n');
 
 
-    /*
-     * CSS取得
-     */
-
-    const cssElement =
-      document.getElementById(
-        'gist-card-css'
-      );
-
-
-    const css =
-      cssElement
-        ? cssElement.textContent.trim()
-        : '';
-
 
     /*
      * コピーする内容
      */
 
     const output = `
-
-<style>
-${css}
-</style>
 
 ${html}
 
