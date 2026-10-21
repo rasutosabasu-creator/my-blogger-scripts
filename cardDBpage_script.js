@@ -107,7 +107,7 @@
       .map(function (subtype) {
 
         return `
-          <span class="gist-card__subtype">
+          <span class="json-card__subtype">
             ${escapeHTML(subtype)}
           </span>
         `;
@@ -143,7 +143,7 @@
       String(item.value).trim() !== ''
     ) {
       stats.push(`
-        <div class="gist-card__stat">
+        <div class="json-card__stat">
           バリュー：${escapeHTML(item.value)}
         </div>
       `);
@@ -155,7 +155,7 @@
       String(item.power).trim() !== ''
     ) {
       stats.push(`
-        <div class="gist-card__stat">
+        <div class="json-card__stat">
           パワー：${escapeHTML(item.power)} (＋${escapeHTML(item.plus)})
         </div>
       `);
@@ -170,7 +170,7 @@
 
     const imageHTML = imageURL
       ? `
-        <div class="gist-card__image">
+        <div class="json-card__image">
           <img
             src="${imageURL}"
             alt="${escapeHTML(item.名前 || '')}"
@@ -187,7 +187,7 @@
 
     const typeHTML = item.type
       ? `
-        <div class="gist-card__type">
+        <div class="json-card__type">
           カードタイプ：${escapeHTML(item.type)}
         </div>
       `
@@ -200,7 +200,7 @@
 
     const subtypeHTML = item.subtype
       ? `
-        <div class="gist-card__subtypes">
+        <div class="json-card__subtypes">
           サブタイプ：${createSubtypes(item.subtype)}
         </div>
       `
@@ -213,7 +213,7 @@
 
     const ruletextHTML = item.ruletext
       ? `
-        <div class="gist-card__ruletext">
+        <div class="json-card__ruletext">
           ${formatText(item.ruletext)}
         </div>
       `
@@ -226,10 +226,10 @@
 
     const changeHTML = item.ruling
       ? `
-        <div class="gist-card__change">
-          <div class="gist-card__stat">裁定情報</div>
+        <div class="json-card__change">
+          <div class="json-card__stat">裁定情報</div>
 
-          <div class="gist-card__ruling-content">
+          <div class="json-card__ruling-content">
             ${formatText(item.ruling)}
           </div>
         </div>
@@ -243,10 +243,10 @@
 
     const rulingHTML = item.ruling
       ? `
-        <div class="gist-card__ruling">
-          <div class="gist-card__stat">裁定情報</div>
+        <div class="json-card__ruling">
+          <div class="json-card__stat">裁定情報</div>
 
-          <div class="gist-card__ruling-content">
+          <div class="json-card__ruling-content">
             ${formatText(item.ruling)}
           </div>
         </div>
@@ -260,7 +260,7 @@
 
     const materialHTML = item.material
       ? `
-        <div class="gist-card__links">
+        <div class="json-card__links">
      使用素材：${materialURL}
         </div>
       `
@@ -273,7 +273,7 @@
 
     const illustratorHTML = item.illustrator
       ? `
-        <div class="gist-card__illustrator">
+        <div class="json-card__illustrator">
           Illust：${escapeHTML(item.illustrator)}
         </div>
       `
@@ -290,7 +290,7 @@
   	const safeChangeUrl = escapeHTML(item.change); 
   
   	changeButtonHtml = `
-    	<button type="button" class="gist-card-copy" onclick="location.href='${safeChangeUrl}'">
+    	<button type="button" class="json-card-copy" onclick="location.href='${safeChangeUrl}'">
       	変身前／後を表示する
     	</button>
   	`;
@@ -300,17 +300,17 @@
     return `
 
       <div
-        class="gist-card-container"
+        class="json-card-container"
         data-card-id="${escapeHTML(item.ID)}"
       >
 
-        <div class="gist-card__inner">
+        <div class="json-card__inner">
 
           ${imageHTML}
 
-          <div class="gist-card__content">
+          <div class="json-card__content">
 
-            <h2 class="gist-card__name">
+            <h2 class="json-card__name">
               <div class="cardname_main">${escapeHTML(item.名前 || '')}</div>
               <div class="cardname_ruby">${escapeHTML(item.ruby || '')}</div>
             </h2>
@@ -320,7 +320,7 @@
             ${
               item.description
                 ? `
-                  <p class="gist-card__description">
+                  <p class="json-card__description">
                     ${formatText(item.description)}
                   </p>
                 `
@@ -335,7 +335,7 @@
             ${
               stats.length
                 ? `
-                  <div class="gist-card__stats">
+                  <div class="json-card__stats">
                     ${stats.join('')}
                   </div>
                 `
@@ -403,7 +403,7 @@
 
       const container =
         document.querySelector(
-          '.gist-card-container[data-card-id]'
+          '.json-card-container[data-card-id]'
         );
 
       containers = container
@@ -415,7 +415,7 @@
       containers =
         Array.from(
           document.querySelectorAll(
-            '.gist-card-container[data-card-id]'
+            '.json-card-container[data-card-id]'
           )
         );
 
@@ -436,12 +436,12 @@
     } catch (error) {
 
       console.error(
-        'Gistデータの取得に失敗しました。',
+        'jsonデータの取得に失敗しました。',
         error
       );
 
       /*
-       * Gistが取得できなかった場合は、
+       * jsonが取得できなかった場合は、
        * 既に表示されている静的HTMLを残します。
        */
 
@@ -453,7 +453,7 @@
     if (!Array.isArray(data)) {
 
       console.error(
-        'GistのJSONデータが配列ではありません。'
+        'jsonのJSONデータが配列ではありません。'
       );
 
       return false;
@@ -537,7 +537,7 @@
 
     const input =
       document.getElementById(
-        'gistCardIdInput'
+        'jsonCardIdInput'
       );
 
 
@@ -568,7 +568,7 @@
 
 
     /*
-     * Gistから指定IDのカードを取得して表示
+     * jsonから指定IDのカードを取得して表示
      */
 
     const updated =
