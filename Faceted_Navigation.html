@@ -1,0 +1,413 @@
+
+
+<!--HTML -->
+
+<div id="card-gallery">
+  
+  <div class="cardsearch-title">
+  <h3>カード検索</h3>
+  <input type="text" class="search cardsearch" placeholder="カード名／タイプ／テキスト部分一致で検索">
+  </div>
+
+  <div class="cardsearch-title"><h3>ソート</h3>
+  <button class="sort" data-sort="card-value"><i class="fas fa-arrows-alt-v"></i>　バリュー</button>
+  <button class="sort" data-sort="card-power"><i class="fas fa-arrows-alt-v"></i>　パワー</button>
+  </div>
+  
+  <details class="detailed-filter">
+   <summary>▼　さらに詳細に検索する</summary>
+    
+  <!-- ▼ フィルターエリア ▼ -->
+  <div class="filter-group-container">
+    
+    <!-- カードタイプ -->
+    <div class="cardsearch-title filter-checkboxes">
+      <h3>カードタイプ</h3>
+      <label class="checkbox-label"><input type="checkbox" value="クルー" class="filter-check" data-group="card-type"> クルー</label>
+      <label class="checkbox-label"><input type="checkbox" value="マジック" class="filter-check" data-group="card-type"> マジック</label>
+      <label class="checkbox-label"><input type="checkbox" value="メイガス" class="filter-check" data-group="card-type"> メイガス</label>
+    </div>
+
+    <!-- サブタイプ -->
+    <div class="cardsearch-title filter-checkboxes">
+      <h3>サブタイプ</h3>
+      <label class="checkbox-label"><input type="checkbox" value="ドラゴン" class="filter-check" data-group="card-subtype"> ドラゴン</label>
+      <label class="checkbox-label"><input type="checkbox" value="機械" class="filter-check" data-group="card-subtype"> 機械</label>
+      <label class="checkbox-label"><input type="checkbox" value="ルミナスター" class="filter-check" data-group="card-subtype"> ルミナスター</label>
+      <label class="checkbox-label"><input type="checkbox" value="ジオマンス" class="filter-check" data-group="card-subtype"> ジオマンス</label>
+      <label class="checkbox-label"><input type="checkbox" value="サムライ" class="filter-check" data-group="card-subtype"> サムライ</label>
+      <label class="checkbox-label"><input type="checkbox" value="デーモン" class="filter-check" data-group="card-subtype"> デーモン</label>
+      <label class="checkbox-label"><input type="checkbox" value="スピリット" class="filter-check" data-group="card-subtype"> スピリット</label>
+      <label class="checkbox-label"><input type="checkbox" value="スカイノーマッド" class="filter-check" data-group="card-subtype"> スカイノーマッド</label>
+    </div>
+
+    <!-- バリュー -->
+    <div class="cardsearch-title filter-checkboxes">
+      <h3>バリュー</h3><br>
+      <label class="checkbox-label"><input type="checkbox" value="1" class="filter-check" data-group="card-value"> 1</label>
+      <label class="checkbox-label"><input type="checkbox" value="2" class="filter-check" data-group="card-value"> 2</label>
+      <label class="checkbox-label"><input type="checkbox" value="3" class="filter-check" data-group="card-value"> 3</label>
+      <label class="checkbox-label"><input type="checkbox" value="4" class="filter-check" data-group="card-value"> 4</label>
+      <label class="checkbox-label"><input type="checkbox" value="5" class="filter-check" data-group="card-value"> 5</label>
+      <label class="checkbox-label"><input type="checkbox" value="6" class="filter-check" data-group="card-value"> 6</label>
+    </div>
+  </div>
+      <p>※指定された条件をすべて満たすカードを検索します</p>
+  </details>
+  
+
+
+  
+  <!--
+	検索対象要素の親（List.jsで操作）
+	※	List.jsライブラリは、
+	※	"list"クラスが付与された要素の子要素を読み取って操作を行う
+	-->
+  <div class="list card-grid"></div>
+
+  
+  <!-- ページネーション（List.jsで操作） -->
+  <ul class="pagination"></ul>
+</div>
+
+
+<!-- List.js ライブラリ -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+
+
+<!-- GistからJSONデータベースをフェッチしてHTMLに -->
+<script>
+const DBJSON_RAW_URL = 'https://cdn.jsdelivr.net/gh/rasutosabasu-creator/my-blogger-scripts@main/cardDB.json';
+
+  
+  
+fetch(DBJSON_RAW_URL)
+  .then(response => {
+    if (!response.ok) throw new Error('ネットワークエラーが発生しました');
+    return response.json();
+  })
+  .then(cardData => {
+    const listContainer = document.querySelector('.list');
+    
+    cardData.forEach(card => {
+      
+      // パワーの値が登録されているかで分岐→登録されていたら変数宣言
+      const powerHtml = card.power !== "" 
+        ? `<p>パワー：<span class="card-power">${card.power}</span>（＋<span class="card-plus">${card.plus}</span>）</p>` 
+        : "";
+
+      // バリューの値が登録されているかで分岐→登録されていたら変数宣言
+      const valueHtml = card.value !== ""
+        ? `<p>バリュー：<span class="card-value">${card.value}</span></p>`
+        : ""; 
+      
+      // テンプレートリテラルで検索結果表示カードを作成
+      const cardHtml = `
+        <div class="card-item">
+          <a href="${card.link}">
+          <img src="${card.image}" alt="${card.name}" class="card-img">
+          </a>
+          <h3 class="card-name">${card.名前}</h3>
+          <div class="card-meta">
+          <p><span class="card-type">${card.type}</span> ／ <span class="card-subtype">${card.subtype}</span></p>
+            ${valueHtml}
+            ${powerHtml}
+            <p><br/></p>
+            <p><span class="card-ruletext">${card.ruletext}</span></p>
+          </div>
+        </div>
+      `;
+      listContainer.insertAdjacentHTML('beforeend', cardHtml);
+    });
+
+    // List.jsの初期化
+    const cardList = new List('card-gallery', {
+      valueNames: [
+        'card-name', 
+        'card-ruletext', 
+        'card-type',
+        'card-subtype',
+        'card-value',
+        'card-power'
+      ],
+      page: 10,
+      pagination: true
+    });
+
+    // ▼ フィルター ▼
+    const checkboxes = document.querySelectorAll('.filter-check');
+    
+    checkboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+        
+        // 1. 各グループごとに、チェックされている値を格納するオブジェクトを作成
+        const activeFilters = {
+          'card-type': [],
+          'card-subtype': [],
+          'card-value': []
+        };
+        
+        // 2. 現在チェックが入っているものをグループごとに分類して配列に入れる
+        checkboxes.forEach(chk => {
+          if (chk.checked) {
+            const group = chk.getAttribute('data-group');
+            activeFilters[group].push(chk.value);
+          }
+        });
+        
+        // 3. すべてのグループでチェックが1つもなければ、フィルターを全面解除
+        const totalChecked = activeFilters['card-type'].length + 
+                             activeFilters['card-subtype'].length + 
+                             activeFilters['card-value'].length;
+                             
+        if (totalChecked === 0) {
+          cardList.filter();
+          return;
+        }
+        
+        // 4. 複数グループでの掛け合わせ絞り込み（AND検索）
+        cardList.filter(item => {
+          const cardValues = item.values();
+          
+          // カードタイプの判定
+          if (activeFilters['card-type'].length > 0) {
+            const typeMatch = activeFilters['card-type'].every(keyword => 
+              cardValues['card-type'] && cardValues['card-type'].includes(keyword)
+            );
+            if (!typeMatch) return false; // 満たしていなければ不合格
+          }
+          
+          // サブタイプの判定
+          if (activeFilters['card-subtype'].length > 0) {
+            const subtypeMatch = activeFilters['card-subtype'].every(keyword => 
+              cardValues['card-subtype'] && cardValues['card-subtype'].includes(keyword)
+            );
+            if (!subtypeMatch) return false;
+          }
+          
+          // バリューの判定
+          if (activeFilters['card-value'].length > 0) {
+            const valueMatch = activeFilters['card-value'].every(keyword => 
+              cardValues['card-value'] && String(cardValues['card-value']) === keyword
+            );
+            if (!valueMatch) return false;
+          }
+          
+          // 条件を満たすカードを表示
+          return true;
+        });
+      });
+    });
+    // ▲ フィルター終了 ▲
+
+  })
+  .catch(error => {
+    console.error('データの読み込みに失敗しました:', error);
+  });
+</script>
+
+<style>
+
+#card-gallery {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* 検索窓 */
+.cardsearch {
+  margin: 0;  
+  width: 100%;
+  box-sizing: border-box;
+  height: 1.8em;
+  display: block;
+  border-radius: 20px;
+  border: 1px solid #7b725d;
+  padding-left: 1em;
+}  
+
+.sort {
+  font-size: 0.8em;
+  font-weight: bold;
+  background-color: #fff;
+  border: 1px solid #7b725d;
+  border-radius: 30px;
+  padding: 2px 10px;
+  margin-right: 4px; 
+  cursor: pointer;
+}
+
+/* フィルターエリア */
+.filter-group-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 12px;
+}
+
+.filter-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.checkbox-label {
+  font-weight: bold;
+  font-size: 0.85em;
+  margin-right: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #555;
+}
+
+.filter-check {
+  cursor: pointer;
+  accent-color: #555;
+}
+
+/* カードを並べるコンテナ */
+.card-grid {
+  display: flex;         
+  flex-wrap: wrap;       
+  gap: 16px;            
+  padding: 20px 0;       
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* カード情報 */
+.card-item {
+  flex: 1 1 240px; 
+  background-color: #f8f8f8;
+  border: 1px solid #7b725d;
+  border-radius: 12px;
+  padding: 16px;
+  box-sizing: border-box; 
+}
+  
+.card-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #7b725d;
+  margin: 18px 0 14px 0;
+}
+
+.card-meta p {
+  font-size: 14px;
+  margin: 0; 
+}
+  
+.card-ruletext {
+  white-space: pre-wrap; 
+}
+  
+/* カード画像 */
+.card-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4.5% / 3.3%;
+  box-shadow: 1px 1px 5px #aaa;
+  margin-bottom: 12px;
+}
+
+/* ページネーション */
+.pagination {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 20px 0;
+  gap: 8px;
+  margin: 0;
+}
+
+/* ボタン */
+.pagination li a {
+  display: block;
+  padding: 8px 16px;
+  background-color: #1a1a1a;
+  color: #fff;
+  border: 1px solid #333;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* マウスオーバー */
+.pagination li a:hover {
+  background-color: #555;
+  border-color: #7b725d;
+  color: #f8f8f8;
+}
+
+.pagination li.active a {
+  background-color: #7b725d; 
+  color: #fff;
+  border-color: #7b725d;
+  font-weight: bold;
+}
+
+.cardsearch-title {
+  margin-bottom: 12px;
+}
+
+.cardsearch-title h3 {
+  position: relative;
+  font-weight: bold;
+  display: block;
+  width: 95px;
+  height: 1.4em;
+  font-size: 0.95em;
+  margin: 0 25px 4px 0;
+  color: #7b725d;
+}
+
+.cardsearch-title h3:after {
+  content: "ー";
+  display: inline-block;
+  left: 95px;
+  position: absolute;
+  font-weight: lighter;
+}  
+
+   
+.filter-group-container h3 {
+  display: block;
+  width: 100%;
+  margin: 0 25px 6px 0;
+}
+  
+.detailed-filter {
+	margin: 1.2em 0 2em 0;
+    padding: 0.8em 1em; 
+  	background-color: #f8f8f8;
+  	border: 1px solid #7b725d;
+  	border-radius: 12px;
+  	font-size: 0.9em;
+    }
+.detailed-filter summary {
+      font-weight: bold;
+    }
+
+/* レスポンシブ対応（751px以上） */
+@media(min-width:751px){
+  .cardsearch {
+    margin: 0;  
+    width: calc(100% - 135px);
+    display: inline;
+  }
+
+  .cardsearch-title h3 {
+    margin: 0 25px 0 0;
+    display: inline-block;
+  }
+  
+  .filter-group-container h3 {
+  display: block;
+  width: 100%;
+    margin: 0 25px 6px 0;
+}
+}
+</style>
