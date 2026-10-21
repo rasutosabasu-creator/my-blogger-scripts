@@ -1,4 +1,4 @@
-# ⚠️ 重要：ライセンスに関するご注意 / Important Notice
+ライセンスに関するご注意 / Important Notice
 
 本リポジトリはすべてのファイルがMITライセンスではありません。構成要素ごとに異なる規約が適用されます。
 This repository is NOT entirely under the MIT License. Different terms apply to each component.
