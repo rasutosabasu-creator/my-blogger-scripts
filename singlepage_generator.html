@@ -1,0 +1,107 @@
+<!-- =========================================================
+     カードID切り替え
+     ========================================================= -->
+
+<div
+  id="gistCardSwitcher"
+  style="margin: 20px auto; max-width: 900px; display: flex; justify-content: center; flex-wrap: wrap; align-items: center; gap: 8px;"
+>
+  <label
+    for="gistCardIdInput"
+    style="font-size: 0.9rem; font-weight: 600;"
+  >
+    ID：
+  </label>
+
+  <input
+    type="text"
+    id="gistCardIdInput"
+    value="1"
+    inputmode="numeric"
+    autocomplete="off"
+    placeholder="カードIDを入力"
+    style="box-sizing: border-box; width: 120px; padding: 9px 10px; border: 1px solid #ccc; border-radius: 7px; font-size: 0.9rem;"
+  >
+
+  <button
+    type="button"
+    id="gistCardSwitchButton"
+    class="gist-card-copy"
+    style="margin: 0;"
+  >
+    このIDのカードを表示
+  </button>
+</div>
+
+
+<!-- =========================================================
+     コピー ボタン
+     ========================================================= -->
+
+<button
+  type="button"
+  id="gistCardCopyButton"
+  class="gist-card-copy"
+>
+  生成されたHTMLをコピー
+</button>
+
+
+<!-- =========================================================  
+     カードデータ表示領域
+
+     data-card-id
+     の値を入れ替えることで、
+     読み込むJSONのレコードを切り替えることができる 
+     ========================================================= -->
+<article class="regenerateHTML">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rasutosabasu-creator/my-blogger-scripts@main/cardDBpage_style.css">  
+  
+<div
+  class="gist-card-container"
+  data-card-id="1"
+>
+</div>
+ 
+ <script src="https://cdn.jsdelivr.net/gh/rasutosabasu-creator/my-blogger-scripts@main/cardDBpage_script.js"></script>
+  
+</article>
+
+
+<script>
+(function () {
+  const copyButton = document.getElementById("gistCardCopyButton");
+  const target = document.querySelector(".regenerateHTML");
+
+  if (!copyButton || !target) return;
+
+  copyButton.addEventListener("click", async function () {
+    const originalText = copyButton.textContent;
+
+    try {
+      // コピー対象のHTMLを複製
+      const clone = target.cloneNode(true);
+
+      // コピー機能そのもののスクリプトは対象外
+      // （このスクリプトは .regenerateHTML の外側に置く）
+
+      // コピー用HTMLを作成
+      // CSSのlinkタグ、カード生成用のscriptタグはそのまま残す
+      const htmlToCopy = clone.innerHTML.trim();
+
+      // クリップボードにコピー
+      await navigator.clipboard.writeText(htmlToCopy);
+
+      copyButton.textContent = "コピーしました！";
+    } catch (error) {
+      console.error("HTMLのコピーに失敗しました:", error);
+      copyButton.textContent = "コピーに失敗しました";
+    }
+
+    // ボタンの表示を元に戻す
+    setTimeout(function () {
+      copyButton.textContent = originalText;
+    }, 2000);
+  });
+})();
+</script>
