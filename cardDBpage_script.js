@@ -5,11 +5,15 @@
 
 
   /* =========================================================
-     設定
+     読み込みJSON設定
+	 
+     ※※※※※※※※※※※※※※
+     使用者ごとに必ず編集する項目
+     ※※※※※※※※※※※※※※
+     ▼▼▼読み込むJSONファイルを指定▼▼▼
      ========================================================= */
-
   const DATA_URL =
-    'https://gist.githubusercontent.com/rasutosabasu-creator/5f7f0441b68debeb59005c53d7338086/raw/gistfile1.txt';
+    'https://cdn.jsdelivr.net/gh/rasutosabasu-creator/my-blogger-scripts@main/cardDB.json';
 
 
   /* =========================================================
