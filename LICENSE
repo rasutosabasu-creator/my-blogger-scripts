@@ -1,1 +1,56 @@
-a
+# License Agreement / ライセンス規約
+
+This project is dual-licensed. Different terms apply to the source code, design, and data components as specified below.
+本プロジェクトはデュアルライセンス（複数のライセンス）を採用しています。構成要素ごとに適用される規約が異なりますので、以下をご確認ください。
+
+---
+
+## 1. Design & Data (CSS, JSON files) / デザインおよびデータ（CSS、JSONファイル）
+
+### [ENGLISH]
+All Rights Reserved. 
+- Copyright (c) 2026 rasutosabasu-creator
+- The CSS files, design elements, and JSON data files (including cardDB.json) contained in this repository are the exclusive property of the author.
+- You may NOT copy, modify, distribute, or sub-license these files for any purpose without explicit written permission from the author.
+- Permitted Use: Browsers are authorized to load and cache these files via public CDNs (such as jsDelivr) solely for the purpose of correctly rendering and displaying the author's website.
+
+### [日本語]
+著作権留保 (All Rights Reserved)
+- Copyright (c) 2026 rasutosabasu-creator
+- 本リポジトリに含まれるすべてのCSSファイル、デザイン要素、およびJSONデータファイル（cardDB.json等）の著作権は、著作者に帰属します。
+- 著作者からの明示的な書面による許可なく、これらのファイルをいかなる目的であれ複製、改変、配布、または再ライセンスすることは禁止します。
+- 許諾される利用範囲：著作者のウェブサイトを正しく閲覧・表示する目的において、ブラウザがパブリックCDN（jsDelivr等）を経由してこれらのファイルを読み込み、キャッシュすることは許可されます。
+
+---
+
+## 2. Source Code (JavaScript, HTML) / ソースコード（JavaScript、HTML）
+
+### [ENGLISH]
+The JavaScript and HTML source code in this repository are licensed under the terms of the MIT License below.
+
+### [日本語]
+本リポジトリに含まれるJavaScriptおよびHTMLのソースコードには、以下のMITライセンスが適用されます。
+
+---
+
+### MIT License
+
+Copyright (c) 2026 rasutosabasu-creator
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
