@@ -35,25 +35,25 @@ This repository contains a complete frontend system (JavaScript, CSS, and JSON d
 ## 各ファイルの説明 / File Descriptions
 
 ### `[Faceted_Navigation.html]`  
-- **JP:** ファセット検索を行うメインページです。`List.js` を使用しています。このページでしか使用されないCSSやJavaScriptのコードは、このHTMLソースコードの中に直接記述されています。
-- **EN:** The main page that executes the faceted search, powered by `List.js`. All CSS and JavaScript code exclusive to this search page are embedded directly within this HTML file.
+ファセット検索を行うメインページです。`List.js` を使用しています。このページでしか使用されないCSSやJavaScriptのコードは、このHTMLソースコードの中に直接記述されています。  
+The main page that executes the faceted search, powered by `List.js`. All CSS and JavaScript code exclusive to this search page are embedded directly within this HTML file.  
 
 ### `[DB_singlepage.html]`  
-- **JP:** ファセット検索結果からリンクされる個別ページのテンプレートです。Bloggerの機能を使って、検索結果となるデータ1件ごとに1ページずつシングルページを作成してください。（そもそもファセット検索画面から個別ページにリンクしないようにすれば省力的です）
-- **EN:** A template for individual detail pages linked from the search results. Use Blogger's features to generate a single standalone page for each individual data entry. (Note: Skipping links from the search page to individual pages entirely can save deployment effort).
+ファセット検索結果からリンクされる個別ページのテンプレートです。Bloggerの機能を使って、検索結果となるデータ1件ごとに1ページずつシングルページを作成してください。（そもそもファセット検索画面から個別ページにリンクしないようにすれば省力的です）  
+A template for individual detail pages linked from the search results. Use Blogger's features to generate a single standalone page for each individual data entry. (Note: Skipping links from the search page to individual pages entirely can save deployment effort).  
 
 ### `[cardDB.json]`  
-- **JP:** `Faceted_Navigation.html` から参照されるカードデータベースのJSONデータです。
-- **EN:** The card database JSON file referenced by `Faceted_Navigation.html`.
+`Faceted_Navigation.html` から参照されるカードデータベースのJSONデータです。  
+The card database JSON file referenced by `Faceted_Navigation.html`.  
 
 ### `[cardDBpage_script.js]`  
-- **JP:** シングルページを開いた際に実行されるスクリプトです。JSONファイルを参照し、表示を最新の情報へと動的に書き換える操作を行います。
-- **EN:** A script executed when an individual single page is loaded. It fetches the JSON data and dynamically updates the page layout with the latest information.
+シングルページを開いた際に実行されるスクリプトです。JSONファイルを参照し、表示を最新の情報へと動的に書き換える操作を行います。  
+A script executed when an individual single page is loaded. It fetches the JSON data and dynamically updates the page layout with the latest information.  
 
 ### `[cardDBpage_style.css]`  
-- **JP:** シングルページに適用されるスタイルシートです。このファイルに関する権利は留保されている（MIT適用外）ので、装飾の値をすべて変更するか、あるいはご自身でスタイルシートを作成するようにしてください。
-- **EN:** The stylesheet applied to individual single pages. Since the rights to this file are strictly reserved (excluded from the MIT License), please completely modify the styling values or create your own custom stylesheet.
+シングルページに適用されるスタイルシートです。このファイルに関する権利は留保されている（MIT適用外）ので、装飾の値をすべて変更するか、あるいはご自身でスタイルシートを作成するようにしてください。  
+The stylesheet applied to individual single pages. Since the rights to this file are strictly reserved (excluded from the MIT License), please completely modify the styling values or create your own custom stylesheet.  
 
 ### `[singlepage_generator.html]`  
-- **JP:** シングルページのソースコードを生成するためのツールページです。Blogger上で実行した場合、Bloggerの仕様由来の不具合が発生し、無駄に空行が挿入されてしまいますが、生成されたソースコード自体は問題なく機能します。
-- **EN:** A utility tool page designed to generate the source code for the individual single pages. When executed within Blogger, a minor layout bug inherent to Blogger may inject unnecessary empty lines; however, the generated source code remains fully functional.
+シングルページのソースコードを生成するためのツールページです。Blogger上で実行した場合、Bloggerの仕様由来の不具合が発生し、無駄に空行が挿入されてしまいますが、生成されたソースコード自体は問題なく機能します。  
+A utility tool page designed to generate the source code for the individual single pages. When executed within Blogger, a minor layout bug inherent to Blogger may inject unnecessary empty lines; however, the generated source code remains fully functional.  
